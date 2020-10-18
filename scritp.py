@@ -1,19 +1,22 @@
-from Bio.Seq import Seq
-from Bio.SeqFeature import SeqFeature, FeatureLocation
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 import os
+
+# Ruta del archivo en formato GenBank del escritorio (Uncultured Aquificae bacterium)
+filename = "/mnt/c/Users/abrah/Desktop/COMPUTACION/GCF_000321185.1_ASM32118v1_genomic.gbff" 
+
 def summarize_contents(filename):
+listAOM = []
+listAOM = os.path.split(filename)
+print("file:", listAOM[1], "\npath:", listAOM[0])
 all_records = []
-record = list(SeqIO.parse(filename,"genbank"))
-print("Path: ",os.path.dirname(filename))
-print("Num_record = %i records" %len(record))
+records = list(SeqIO.parse(filename, "genbank"))
+print("num_records = %i records" % len(records))
+print("records:")
+for seq_record in SeqIO.parse(filename, "genbank"):
+all_records.append(seq_record.name)
+print("- id:",seq_record.id)
+print("name: ", seq_record.name)
+print("description: ", seq_record.description)
 print("\n")
-for seq_r in SeqIO.parse(filename,"genbank"):
-all_records.append(seq_r.name)
-print("Name: ",seq_r.name)
-print("ID :",seq_r.id)
-print("Location:")
-for seq_features in seq_r.features :
-print('Star: %d, Stop: %d' %(int(seq_feature.location.start),int(seq_feature.location.end)))
-sunnarize_contents(filename)
+summarize_contents(filename)
